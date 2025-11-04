@@ -72,6 +72,8 @@ export async function* runQuery(history: ChatMessage[], question: string): Async
   const response = await chat.sendMessageStream({ message: question });
 
   for await (const chunk of response) {
-      yield chunk.text;
+      if (typeof chunk.text === 'string') {
+          yield chunk.text; 
+      } 
   }
 }
